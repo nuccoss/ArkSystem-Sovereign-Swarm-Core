@@ -30,28 +30,28 @@ Traditional multi-agent frameworks often suffer from three critical failure mode
 sequenceDiagram
     autonumber
     actor User as Human Master / Controller
-    participant CEO as L0 Supreme Command (001-ceo)
+    participant Orchestrator as L0 Supreme Command (Agent_L0_Alpha)
     participant FBL as FBL Packet & Heritage Storage
-    participant Runtime as GCAAS Agent Runtime (Cloud Run)
+    participant Runtime as Agent Runtime (Cloud Run)
     participant Tool as GCS Tool Connector (Python SDK)
     participant GCS as GCS Bucket (Canonical SSoT)
-    participant Local as Local SSoT Engine (120-admo)
+    participant Local as Local SSoT Engine (Node_L1_Data)
 
     %% Step 1: Directive & Decision
-    User->>CEO: Strategic Directive
-    Note over CEO: High-Budget Reasoning Core<br/>SDA-13D / FBL XML Generation
-    CEO->>FBL: Emit Structured FBL Dispatch
+    User->>Orchestrator: Strategic Directive
+    Note over Orchestrator: High-Budget Reasoning Core<br/>FBL XML Generation
+    Orchestrator->>FBL: Emit Structured FBL Dispatch
 
     %% Step 2: Event-driven Triggering & Tool Execution
     FBL->>Runtime: Eventarc Trigger (GCS Object Finalized)
     Runtime->>Tool: Invoke gcs_tool_write_file()
-    Tool->>GCS: Prefix-Restricted Atomic Write (000_outr_layer/)
+    Tool->>GCS: Prefix-Restricted Atomic Write (sandbox/layer_0/)
 
     %% Step 3: 4-Tier SSoT Synchronization
     par Local Synchronization
         GCS-->>Local: Automated Rsync / Parity Validation
     and Audit Logging
-        Runtime->>GCS: Post-Inference Hook (25_log/)
+        Runtime->>GCS: Post-Inference Hook (sandbox/logs/)
     end
     Local-->>User: Parity Verified & Execution Proof (100% COMPLETED)
 ```
@@ -60,8 +60,8 @@ sequenceDiagram
 
 ## 📦 3. Key Components
 
-- **`src/gcs_tool_connector.py`**: Enterprise-grade Google Cloud Storage tool connector with strict IAM Condition prefix sandboxing (`000_outr_layer/`, `100_1st_layer/`) and automated conversation turn logging.
-- **`src/fbl_protocol_parser.py`**: High-performance XML/YAML Feedback Loop (FBL) packet parser validating governance compliance (`LAW-FBL-RESPONSE-COMPLETION`, `LAW-TASK-BOARD-EVERY-QUERY-GOVERNANCE`).
+- **`src/gcs_tool_connector.py`**: Enterprise-grade Google Cloud Storage tool connector with strict IAM Condition prefix sandboxing (`sandbox/layer_0/`, `sandbox/layer_1/`) and automated conversation turn logging.
+- **`src/fbl_protocol_parser.py`**: High-performance XML/YAML Feedback Loop (FBL) packet parser validating governance compliance (`LAW-FBL-COMPLETION-PROTOCOL`, `LAW-TASK-BOARD-GOVERNANCE`).
 - **`src/ssot_parity_inspector.py`**: Real-time hash and metadata parity auditor measuring Cognitive Dissociation Index (CDI) across storage tiers.
 
 ---
@@ -94,11 +94,15 @@ pytest tests/
 ## 🔒 5. Security & Dual Air-Gap Boundary
 
 ArkSystem enforces strict Zero-Trust boundaries:
-- **No PII Transmission**: Raw personal identity information and confidential documents are 100% air-gapped on local storage. Only SHA-256 cryptographic hashes are synchronized to the cloud.
+- **No PII Transmission**: Raw personal identity information and confidential documents are 100% air-gapped on local storage. Only cryptographic hashes are synchronized to the cloud.
 - **Prefix Sandboxing**: GCS Tool Connectors reject any path operations outside authorized namespaces.
 
 ---
 
-## 📜 6. License
+## 🛡️ 6. Trademark & Licensing
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+### Trademark Notice
+"ArkSystem", "SASS", and related logos are trademarks of the ArkSystem Project. Unauthorized commercial use or branding as official ArkSystem distribution without explicit authorization is strictly prohibited.
+
+### License & Contributions
+This project is licensed under the **Apache License 2.0** - see the [LICENSE](LICENSE) file for details. Contributors are required to adhere to the standard Contributor License Agreement (CLA).

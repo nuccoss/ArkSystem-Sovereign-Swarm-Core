@@ -3,11 +3,11 @@
 """
 Demo: WebMCP Dynamic Browser & Live Dashboard Stream Bridge.
 
-This script demonstrates how ArkSystem's WebMCP bridge streams masked SDA-13D
-JSON digests to browser-based interactive live dashboards without exposing raw DB records.
+This script demonstrates how Sovereign Swarm WebMCP bridge streams masked
+JSON digests to browser-based interactive live dashboards without exposing raw internal state.
 
-Standard: ArkSystem v6.90 / SASS v5.0 / CANON v1.4.0 / WebMCP-1.0
-Author: 120-admo-gai-ag-am
+Standard: SASS v5.0 / WebMCP-1.0
+Author: ArkSystem Core Team
 """
 import os
 import sys
@@ -25,22 +25,22 @@ def generate_webmcp_event_stream():
         "event_type": "DASHBOARD_LIVE_PULSE",
         "timestamp": int(time.time()),
         "active_swarms": {
-            "L0_Command": ["001-ceo", "005-march", "007-clo", "011-ftam"],
-            "L1_Database": ["120-admo", "121-audit", "125-tlo"]
+            "L0_Command": ["Core_L0_Alpha", "Core_L0_Beta", "Core_L0_Gamma", "Core_L0_Delta"],
+            "L1_Database": ["Node_L1_Data", "Node_L1_Verify", "Node_L1_Stream"]
         },
         "ssot_parity": {
             "local_tier": 100.0,
-            "gdrive_tier": 100.0,
+            "drive_tier": 100.0,
             "gcs_tier": 100.0,
-            "bigquery_tier": 100.0
+            "analytics_tier": 100.0
         },
-        "cdi_metric": 0.0006,
+        "cdi_metric": 0.0000,
         "security_boundary": "FAIL-CLOSED-DUAL-AIR-GAP"
     }
     return dashboard_digest
 
 def main():
-    print("=== ArkSystem WebMCP Live Dashboard Stream Demo ===")
+    print("=== Sovereign WebMCP Live Dashboard Stream Demo ===")
     pulse = generate_webmcp_event_stream()
     print(f"Timestamp        : {pulse['timestamp']}")
     print(f"Active Swarms    : {pulse['active_swarms']}")

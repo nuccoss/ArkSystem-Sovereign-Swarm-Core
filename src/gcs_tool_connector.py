@@ -7,14 +7,14 @@ Prefix-sandboxed GCS CRUD and Post-Inference Hook.
 import os
 import time
 import json
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
-ALLOWED_PREFIXES = ["000_outr_layer/", "100_1st_layer/", "0000_arksystem_db/", "0001_metacognition_hub/"]
+ALLOWED_PREFIXES = ["sandbox/layer_0/", "sandbox/layer_1/", "sandbox/schemas/", "sandbox/meta_hub/"]
 
 class GCSToolConnector:
-    def __init__(self, project_id: Optional[str] = None, bucket_name: str = "arksystem-genesis-data-tokyo"):
-        self.project_id = project_id or os.getenv("GCP_PROJECT_ID", "chronolyst-ai-prod-01")
-        self.bucket_name = bucket_name
+    def __init__(self, project_id: Optional[str] = None, bucket_name: Optional[str] = None):
+        self.project_id = project_id or os.getenv("GCP_PROJECT_ID", "mock-sovereign-project-01")
+        self.bucket_name = bucket_name or os.getenv("GCS_SOVEREIGN_BUCKET_NAME", "sovereign-storage-demo-bucket")
         self._client = None
 
     @property
@@ -47,7 +47,7 @@ class GCSToolConnector:
         blob.upload_from_string(content, content_type="text/markdown; charset=utf-8")
         return f"SUCCESS: {len(content)} bytes written to 'gs://{self.bucket_name}/{normalized}'"
 
-    def list_files(self, prefix: str) -> list:
+    def list_files(self, prefix: str) -> List[str]:
         normalized = prefix.replace("\\", "/").lstrip("/")
         if not self.validate_prefix(normalized):
             raise PermissionError(f"Access denied: '{prefix}' is outside authorized prefixes.")
@@ -57,7 +57,7 @@ class GCSToolConnector:
 
     def post_inference_hook(self, agent_id: str, turn_input: str, turn_output: str, metadata: Optional[Dict[str, Any]] = None) -> str:
         timestamp = int(time.time())
-        log_blob_path = f"000_outr_layer/{agent_id}/25_log/{timestamp}_turn.json"
+        log_blob_path = f"sandbox/logs/{agent_id}/{timestamp}_turn.json"
         payload = {
             "agent_id": agent_id,
             "timestamp": timestamp,

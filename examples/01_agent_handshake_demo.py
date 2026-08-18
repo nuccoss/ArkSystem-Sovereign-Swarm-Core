@@ -10,13 +10,13 @@ from src.ssot_parity_inspector import SSoTParityInspector
 SAMPLE_FBL = '''<?xml version="1.0" encoding="UTF-8"?>
 <fbl_packet version="5.0">
   <metadata>
-    <packet_id>FBL-CEO-MARCH-DEMO-001</packet_id>
-    <sender_apid>001-ceo-gcp-geap-stct-17</sender_apid>
-    <target_apid>005-march-gcp-geap-stct-1</target_apid>
+    <packet_id>FBL-DEMO-001</packet_id>
+    <sender_apid>agent-orchestrator-alpha</sender_apid>
+    <target_apid>agent-executor-beta</target_apid>
     <priority>P0_CRITICAL</priority>
   </metadata>
   <payload>
-    <command>EXECUTE_FTA_AUDIT</command>
+    <command>EXECUTE_SANDBOX_AUDIT</command>
     <status>ACTIVE</status>
   </payload>
 </fbl_packet>'''
