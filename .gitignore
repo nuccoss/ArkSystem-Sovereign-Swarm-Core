@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments & Secrets
+.env
+*.env
+*.json.key
+*service_account*.json
+.venv/
+env/
+venv/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Test outputs
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
